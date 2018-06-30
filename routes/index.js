@@ -7,9 +7,11 @@ const Picture = require('../models/picture');
 // Route to upload from project base path
 const upload = multer({ dest: './public/uploads/' });
 
-/* GET home page */
-router.get('/', (req, res, next) => {
-  res.render('index');
+/* GET home page. */
+router.get('/', function(req, res, next) {
+  Picture.find((err, pictures) => {
+    res.render('index', {pictures})
+  })
 });
 
 router.post('/upload', upload.single('photo'), (req, res) => {
